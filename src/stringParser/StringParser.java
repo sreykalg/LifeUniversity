@@ -9,8 +9,8 @@ public class StringParser {
     }
 
     /* id=100&name=User1&birthDate=2025-01-01&hobby=running
-    *  &,=
-    * */
+     *  &,=
+     * */
 
     public String getString(String key) {
         String[] splitData = data.split("&");

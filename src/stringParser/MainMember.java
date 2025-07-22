@@ -3,7 +3,7 @@ package stringParser;
 import java.time.LocalDate;
 
 public class MainMember {
-    public static void main(String[] agrs){
+    public static void main(String[] agrs) {
         StringParser strParser = new StringParser("id=100&name=User1&birthDate=2025-01-01&hobby=running");
         Member member = new Member();
 
