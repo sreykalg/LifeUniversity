@@ -6,11 +6,23 @@ package stringParser;
 import java.time.LocalDate;
 
 public class Member {
+
     private Long id;
     private String name;
     private LocalDate birthDate;
     private String hobby;
     // ~~~
+
+    public Member() {
+        // Default constructor
+    }
+
+    public Member(Long id, String name, LocalDate birthDate, String hobby) {
+        this.id = id;
+        this.name = name;
+        this.birthDate = birthDate;
+        this.hobby = hobby;
+    }
 
     public Long getId() {
         return id;
@@ -43,6 +55,15 @@ public class Member {
     public void setHobby(String hobby) {
         this.hobby = hobby;
     }
+
+    @Override
+    public String toString() {
+        return "Member{" +
+            "id=" + id +
+            ", name='" + name + '\'' +
+            ", birthDate=" + birthDate +
+            ", hobby='" + hobby + '\'' +
+            '}';
+    }
+
 }
-
-

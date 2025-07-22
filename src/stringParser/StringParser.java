@@ -1,5 +1,8 @@
 package stringParser;
 
+import java.time.LocalDate;
+import java.util.Optional;
+
 public class StringParser {
 
     private final String data;
@@ -12,42 +15,49 @@ public class StringParser {
      *  &,=
      * */
 
-    public String getString(String key) {
+    public Optional<String> getString(String key) {
         String[] splitData = data.split("&");
-        for (int i = 0; i < splitData.length; i++) {
-            String[] keyValue = splitData[i].split("=");
+        for (String split : splitData) {
+            String[] keyValue = split.split("=");
             if (keyValue.length == 2 && keyValue[0].equals(key)) {
-                return keyValue[1];
+                return Optional.of(keyValue[1]);
             }
         }
-        return null;
+        return Optional.empty();
     }
 
     public String getString(String key, String defaultValue) {
-        String result = getString(key);
-        if (result != null) {
-            return result;
-        } else {
-            return defaultValue;
-        }
+        return getString(key).orElse(defaultValue);
     }
 
-    public int getInt(String key) {
-        String value = getString(key);
-        if (value == null) {
-            throw new IllegalArgumentException("not found!");
-
-        }
-        return Integer.parseInt(value);
+    public Optional<Integer> getInt(String key) {
+        Optional<String> value = getString(key);
+        return value.map(Integer::parseInt);
     }
 
-    public int getInt(String key, int defaultValue) {
-        String value = getString(key);
-        if (value != null) {
-            return Integer.parseInt(value);
-        } else {
-            return defaultValue;
-        }
+    public Integer getInt(String key, int defaultValue) {
+        Optional<Integer> value = getInt(key);
+        return value.orElse(defaultValue);
+    }
+
+    public Optional<Long> getLong(String key) {
+        Optional<String> value = getString(key);
+        return value.map(Long::parseLong);
+    }
+
+    public Long getLong(String key, long defaultValue) {
+        Optional<Long> value = getLong(key);
+        return value.orElse(defaultValue);
+    }
+
+    public Optional<LocalDate> getLocalDate(String key) {
+        Optional<String> value = getString(key);
+        return value.map(LocalDate::parse);
+    }
+
+    public LocalDate getLocalDate(String key, LocalDate defaultValue) {
+        Optional<LocalDate> value = getLocalDate(key);
+        return value.orElse(defaultValue);
     }
 
 }
